@@ -1,0 +1,2 @@
+# BlanketBot
+lostark discord bot
