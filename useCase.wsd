@@ -1,0 +1,67 @@
+@startuml
+actor User
+rectangle {
+    skinparam actorStyle awesome
+    actor Crawler <<actor>>
+}
+left to right direction
+rectangle BlanketBot{
+    package General{
+        usecase "케릭터 스펙 체크" as characterSpecCheck
+        usecase "최적 경매가 계산"
+        package Tips{
+            usecase "Tip 작성"
+            usecase "Tip 삭제"
+            usecase "Tip 조회"
+        } 
+    }
+
+    package Auction{
+        usecase "크리스탈 가격 확인"
+        usecase "강화재료 가격 확인"
+        usecase "강화재료 제작효율 확인"
+    }
+
+    package Character{
+        usecase "케릭터 연동" as characterSync
+        usecase "주간 골드 획득 케릭터 선택"
+        package "컨텐츠 처리 현황"{
+            usecase "현황 조회"
+            usecase "현황 수정"
+        }
+        usecase "메인 케릭터 선택"
+        usecase "케릭터 삭제"
+    }
+
+    package Party{
+        usecase "파티생성"
+        usecase "파티조회"
+        usecase "파티신청"
+        usecase "파티관리"
+        usecase "파티 자동 구성"
+    }
+
+    package ETC{
+        usecase "가위바위보"
+        usecase "주사위게임"
+        usecase "사다리타기"
+    }
+
+    usecase "사용자 인증" as login
+
+}
+
+Auction -- Crawler
+characterSpecCheck -- Crawler
+characterSync -- Crawler
+Tips .> login : include
+Party .> login : include
+Character .> login : include
+
+User -- Auction
+User -- General
+User -- Character
+User -- Party
+User -- ETC
+
+@enduml
